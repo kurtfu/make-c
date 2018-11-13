@@ -26,7 +26,7 @@ ifeq (${OS}, Windows_NT)
     # Function that used to search source files.
     define find
         $(subst ${CURDIR},${PROJ_PATH},
-          $(subst \,/,$(shell "where" 2>nul /r $(subst /,\,${1}) ${2})))
+          $(subst \,/,$(shell "where" 2>nul /r ${1} ${2})))
     endef
 else
     SHELL = /bin/sh         # Shell that used by the host.
