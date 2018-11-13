@@ -3,13 +3,7 @@
 #------------------------------------------------------------------------------
 
 -include Makefile.config
-
-#------------------------------------------------------------------------------
-# BUILD TOOLS
-#------------------------------------------------------------------------------
-
-CC = gcc  # C Compiler
-CL = gcc  # Linker
+-include Makefile.target
 
 #------------------------------------------------------------------------------
 # SHELL COMMANDS
@@ -36,19 +30,6 @@ else
     define find
         $(shell find ${1} -name "${2}")
     endef
-endif
-
-#------------------------------------------------------------------------------
-# EXTENSIONS
-#------------------------------------------------------------------------------
-
-# If the host operating system is any version of Microsoft Windows, output
-# file's extension is ".exe". If it is a Unix-like system, extension is ".out".
-
-ifeq (${OS}, Windows_NT)
-    OUT_EXT = .exe
-else
-    OUT_EXT = .out
 endif
 
 #------------------------------------------------------------------------------
