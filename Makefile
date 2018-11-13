@@ -6,6 +6,14 @@
 -include Makefile.target
 
 #------------------------------------------------------------------------------
+#  CONFIGURATION ERROR CHECKS
+#------------------------------------------------------------------------------
+
+ifndef PROJ
+    $(error "Project name must be specified!")
+endif
+
+#------------------------------------------------------------------------------
 # SHELL COMMANDS
 #------------------------------------------------------------------------------
 
@@ -30,14 +38,6 @@ else
     define find
         $(shell find ${1} -name "${2}")
     endef
-endif
-
-#------------------------------------------------------------------------------
-#  CONFIGURATION ERROR CHECKS
-#------------------------------------------------------------------------------
-
-ifndef PROJ
-    $(error "Project name must be specified!")
 endif
 
 #------------------------------------------------------------------------------
@@ -73,19 +73,19 @@ all:
 	@${MAKE} --no-print-directory ${OUT}
 	@echo "Project Build Successfully"
 
+build: ${OBJ}
+	@echo "Objects Build Successfully"
+
 clean:
 	@${RMDIR} "${BIN_PATH}" ||:
 	@echo "Project Cleaned Successfully"
-
-build: ${OBJ}
-	@echo "Objects Build Successfully"
 
 rebuild:
 	@${MAKE} --no-print-directory clean
 	@${MAKE} --no-print-directory all
 
 #------------------------------------------------------------------------------
-# BUILD CONFIGURATIONS
+# BUILD RULES
 #------------------------------------------------------------------------------
 
 ${OUT}:
