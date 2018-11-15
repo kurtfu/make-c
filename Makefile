@@ -68,9 +68,7 @@ OUT  := $(addsuffix ${OUT_EXT}, ${OUT})
 
 .PHONY: all build clean rebuild ${OUT}
 
-all:
-	@${MAKE} --no-print-directory build
-	@${MAKE} --no-print-directory ${OUT}
+all: build ${OUT}
 	@echo "Project Build Successfully"
 
 build: ${OBJ}
@@ -80,9 +78,7 @@ clean:
 	@${RMDIR} "${BIN_PATH}" ||:
 	@echo "Project Cleaned Successfully"
 
-rebuild:
-	@${MAKE} --no-print-directory clean
-	@${MAKE} --no-print-directory all
+rebuild: clean all
 
 #------------------------------------------------------------------------------
 # BUILD RULES
