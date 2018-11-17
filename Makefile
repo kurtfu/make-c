@@ -1,4 +1,4 @@
-#-----------------------------------------------------------------------------$
+#------------------------------------------------------------------------------
 # DEPENDENCY INCLUDES
 #------------------------------------------------------------------------------
 
@@ -11,6 +11,10 @@
 
 ifndef PROJ
     $(error "Project name must be specified!")
+endif
+
+ifndef TYPE
+    $(error "Output type must be specified!")
 endif
 
 #------------------------------------------------------------------------------
@@ -59,8 +63,17 @@ SRC  += $(call find, ${PROJ_PATH},*.s)
 OBJ   = $(patsubst ${PROJ_PATH}/%.c,${BIN_PATH}/%.o, ${SRC})
 OBJ  := $(patsubst ${PROJ_PATH}/%.s,${BIN_PATH}/%.o, ${OBJ})
 
-OUT   = $(addprefix ${BIN_PATH}/, ${PROJ})
-OUT  := $(addsuffix ${OUT_EXT}, ${OUT})
+EXEC  = $(addprefix ${BIN_PATH}/, ${PROJ})
+EXEC := $(addsuffix ${OUT_EXT}, ${EXEC})
+
+SLIB  = $(addprefix ${BIN_PATH}/, ${PROJ})
+SLIB := $(addsuffix .a, ${SLIB})
+
+ifeq (${TYPE}, EXEC)
+	OUT = ${EXEC}
+else ifeq (${TYPE}, SLIB)
+	OUT = ${SLIB}
+endif
 
 #------------------------------------------------------------------------------
 # MAKE RULES
@@ -84,8 +97,11 @@ rebuild: clean all
 # BUILD RULES
 #------------------------------------------------------------------------------
 
-${OUT}:
+${EXEC}:
 	${CL} -o ${OUT} ${OBJ} ${CL_FLAG}
+
+${SLIB}:
+	${AR} -crv ${SLIB} ${OBJ}
 
 ${BIN_PATH}/%.o: ${PROJ_PATH}/%.c
 	@${MKDIR} "$(dir $@)" ||:
