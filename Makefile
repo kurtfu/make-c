@@ -60,6 +60,8 @@ INC   = $(addprefix -I , ${INC_PATH})
 SRC   = $(call find, ${PROJ_PATH},*.c)
 SRC  += $(call find, ${PROJ_PATH},*.s)
 
+SRC  := $(filter-out ${EXL_FILE}, ${SRC})
+
 OBJ   = $(patsubst ${PROJ_PATH}/%.c,${BIN_PATH}/%.o, ${SRC})
 OBJ  := $(patsubst ${PROJ_PATH}/%.s,${BIN_PATH}/%.o, ${OBJ})
 
