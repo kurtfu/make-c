@@ -61,6 +61,9 @@ SRC   = $(call find, ${PROJ_PATH},*.c)
 SRC  += $(call find, ${PROJ_PATH},*.s)
 
 SRC  := $(filter-out ${EXL_FILE}, ${SRC})
+SRC  := $(filter-out ${BIN_PATH}/%.s,${SRC})
+
+ASM   = $(patsubst ${PROJ_PATH}/%.c,${BIN_PATH}/%.s, ${SRC})
 
 OBJ   = $(patsubst ${PROJ_PATH}/%.c,${BIN_PATH}/%.o, ${SRC})
 OBJ  := $(patsubst ${PROJ_PATH}/%.s,${BIN_PATH}/%.o, ${OBJ})
@@ -70,6 +73,12 @@ EXEC := $(addsuffix ${OUT_EXT}, ${EXEC})
 
 SLIB  = $(addprefix ${BIN_PATH}/, ${PROJ})
 SLIB := $(addsuffix .a, ${SLIB})
+
+BUILD_DEPS = ${OBJ}
+
+ifeq (${KEEP_ASM}, YES)
+	BUILD_DEPS += ${ASM}
+endif
 
 ifeq (${TYPE}, EXEC)
 	OUT = ${EXEC}
@@ -86,7 +95,7 @@ endif
 all: build ${OUT}
 	@echo "Project Build Successfully"
 
-build: ${OBJ}
+build: ${BUILD_DEPS}
 	@echo "Objects Build Successfully"
 
 clean:
@@ -112,3 +121,7 @@ ${BIN_PATH}/%.o: ${PROJ_PATH}/%.c
 ${BIN_PATH}/%.o: ${PROJ_PATH}/%.s
 	@${MKDIR} "$(dir $@)" ||:
 	${CC} ${INC} -c -o $@ $< ${CC_FLAG}
+
+${BIN_PATH}/%.s: ${PROJ_PATH}/%.c
+	@${MKDIR} "$(dir $@)" ||:
+	${CC} ${INC} -S -o $@ $< ${CC_FLAG}
