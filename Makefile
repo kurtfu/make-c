@@ -105,23 +105,7 @@ clean:
 rebuild: clean all
 
 #------------------------------------------------------------------------------
-# BUILD RULES
+# RULE INCLUDES
 #------------------------------------------------------------------------------
 
-${EXEC}:
-	${CL} -o ${OUT} ${OBJ} ${CL_FLAG}
-
-${SLIB}:
-	${AR} -crv ${SLIB} ${OBJ}
-
-${BIN_PATH}/%.o: ${PROJ_PATH}/%.c
-	@${MKDIR} "$(dir $@)" ||:
-	${CC} ${INC} -c -o $@ $< ${CC_FLAG}
-
-${BIN_PATH}/%.o: ${PROJ_PATH}/%.s
-	@${MKDIR} "$(dir $@)" ||:
-	${CC} ${INC} -c -o $@ $< ${CC_FLAG}
-
-${BIN_PATH}/%.s: ${PROJ_PATH}/%.c
-	@${MKDIR} "$(dir $@)" ||:
-	${CC} ${INC} -S -o $@ $< ${CC_FLAG}
+-include Rules.mk
