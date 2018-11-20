@@ -2,8 +2,8 @@
 # DEPENDENCY INCLUDES
 #------------------------------------------------------------------------------
 
--include Makefile.config
--include Makefile.target
+include Makefile.config
+include Makefile.target
 
 #------------------------------------------------------------------------------
 #  CONFIGURATION ERROR CHECKS
@@ -108,4 +108,4 @@ rebuild: clean all
 # RULE INCLUDES
 #------------------------------------------------------------------------------
 
--include Rules.mk
+include Rules.mk
