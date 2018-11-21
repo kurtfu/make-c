@@ -2,8 +2,8 @@
 # DEPENDENCY INCLUDES
 #------------------------------------------------------------------------------
 
-include Makefile.config
-include Makefile.target
+include Config.mk
+include Target.mk
 
 #------------------------------------------------------------------------------
 #  CONFIGURATION ERROR CHECKS
