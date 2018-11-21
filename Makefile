@@ -55,8 +55,6 @@ BIN_PATH   = $(addsuffix /bin, ${PROJ_PATH})
 # INPUT & OUTPUT FILE DEFINITIONS
 #------------------------------------------------------------------------------
 
-INC   = $(addprefix -I , ${INC_PATH})
-
 SRC   = $(call find, ${PROJ_PATH},*.c)
 SRC  += $(call find, ${PROJ_PATH},*.s)
 

@@ -41,15 +41,3 @@ KEEP_ASM  =
 # system path is used.
 
 INC_PATH +=
-
-# The tag describes the compiler flags. Multiple flags could be added by
-# separating with whitespace. If the tag left blank, the project is compiled
-# with compiler's default configurations.
-
-CC_FLAG  +=
-
-# The tag describes the linker flags. Multiple flags could be added by
-# separating with whitespace. If the tag left blank, the project is linked
-# with linker's default configurations.
-
-CL_FLAG  +=
