@@ -5,6 +5,15 @@
 # Add search path for header files.
 CC_FLAGS += $(addprefix -I , ${INC_PATH})
 
+# Add language standard flag.
+ifeq (${STD}, ANSI)
+	CC_FLAGS += -ansi
+else ifeq (${STD}, C99)
+	CC_FLAGS += -std=c99
+else ifeq (${STD}, C11)
+	CC_FLAGS += -std=c11
+endif
+
 #------------------------------------------------------------------------------
 # BUILD RULES
 #------------------------------------------------------------------------------
