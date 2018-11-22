@@ -4,6 +4,7 @@
 
 CC = gcc  # C Compiler
 CL = gcc  # Linker
+AR = ar   # Archiver
 
 #------------------------------------------------------------------------------
 # EXTENSIONS
