@@ -20,6 +20,21 @@ AR = ar   # Archiver
 
 STD = C99
 
+# The tag specifies strict ISO C standard feature. If the tag set as 'YES',
+# all the warnings demanded by ISO C to be issued while compiling.
+
+STRICT_ISO = YES
+
+# The tag specifies all warning flag feature. If the tag set as 'YES',
+# all warning flags are enabled while compiling.
+
+WARN_ALL   = YES
+
+# The tag specifies extra warning flag feature. If the tag set as 'YES',
+# extra warning flags are enabled while compiling.
+
+WARN_EXTRA = YES
+
 #------------------------------------------------------------------------------
 # EXTENSIONS
 #------------------------------------------------------------------------------

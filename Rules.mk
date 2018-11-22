@@ -14,6 +14,21 @@ else ifeq (${STD}, C11)
 	CC_FLAGS += -std=c11
 endif
 
+# Add strict ISO C warnings flag.
+ifeq (${STRICT_ISO}, YES)
+	CC_FLAGS += -pedantic
+endif
+
+# Add the all warnings flag.
+ifeq (${WARN_ALL}, YES)
+	CC_FLAGS += -Wall
+endif
+
+# Add the extra warnings flag.
+ifeq (${WARN_EXTRA}, YES)
+	CC_FLAGS += -Wextra
+endif
+
 #------------------------------------------------------------------------------
 # BUILD RULES
 #------------------------------------------------------------------------------
