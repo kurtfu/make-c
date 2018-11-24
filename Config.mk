@@ -9,7 +9,8 @@
 PROJ      =
 
 # The tag describes the output type of the project. Before build the project,
-# output type must be specified. Two types are supported:
+# output type must be specified.
+# Supported types:
 # EXEC -> Executable output.
 # SLIB -> Static library.
 
@@ -19,10 +20,8 @@ TYPE      =
 # SOURCE CONFIGURATIONS
 #------------------------------------------------------------------------------
 
-# The tag describes the exclude files of the project. Any element of this tag
-# is not compiled within the project. Multiple files could be added by
-# separating with whitespace. If the tag left blank, all files under the
-# project root folder is compiled.
+# The tag describes the exclude files of the project. Any element of the tag
+# is not compiled. Multiple files could be added.
 
 EXL_FILE +=
 
@@ -37,7 +36,6 @@ KEEP_ASM  =
 #------------------------------------------------------------------------------
 
 # The tag describes the include path of the project. Multiple paths could be
-# added by separating with whitespace. If the tag left blank, only default
-# system path is used.
+# added.
 
 INC_PATH +=
