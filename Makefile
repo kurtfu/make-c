@@ -1,9 +1,9 @@
-#-----------------------------------------------------------------------------$
+#------------------------------------------------------------------------------
 # DEPENDENCY INCLUDES
 #------------------------------------------------------------------------------
 
--include Makefile.config
--include Makefile.target
+include build/Config.mk
+include build/Target.mk
 
 #------------------------------------------------------------------------------
 #  CONFIGURATION ERROR CHECKS
@@ -11,6 +11,10 @@
 
 ifndef PROJ
     $(error "Project name must be specified!")
+endif
+
+ifndef TYPE
+    $(error "Output type must be specified!")
 endif
 
 #------------------------------------------------------------------------------
@@ -51,16 +55,34 @@ BIN_PATH   = $(addsuffix /bin, ${PROJ_PATH})
 # INPUT & OUTPUT FILE DEFINITIONS
 #------------------------------------------------------------------------------
 
-INC   = $(addprefix -I , ${INC_PATH})
-
 SRC   = $(call find, ${PROJ_PATH},*.c)
 SRC  += $(call find, ${PROJ_PATH},*.s)
+
+SRC  := $(filter-out ${EXL_FILE}, ${SRC})
+SRC  := $(filter-out ${BIN_PATH}/%.s,${SRC})
+
+ASM   = $(patsubst ${PROJ_PATH}/%.c,${BIN_PATH}/%.s, ${SRC})
 
 OBJ   = $(patsubst ${PROJ_PATH}/%.c,${BIN_PATH}/%.o, ${SRC})
 OBJ  := $(patsubst ${PROJ_PATH}/%.s,${BIN_PATH}/%.o, ${OBJ})
 
-OUT   = $(addprefix ${BIN_PATH}/, ${PROJ})
-OUT  := $(addsuffix ${OUT_EXT}, ${OUT})
+EXEC  = $(addprefix ${BIN_PATH}/, ${PROJ})
+EXEC := $(addsuffix ${OUT_EXT}, ${EXEC})
+
+SLIB  = $(addprefix ${BIN_PATH}/, ${PROJ})
+SLIB := $(addsuffix .a, ${SLIB})
+
+BUILD_DEPS = ${OBJ}
+
+ifeq (${KEEP_ASM}, YES)
+	BUILD_DEPS += ${ASM}
+endif
+
+ifeq (${TYPE}, EXEC)
+	OUT = ${EXEC}
+else ifeq (${TYPE}, SLIB)
+	OUT = ${SLIB}
+endif
 
 #------------------------------------------------------------------------------
 # MAKE RULES
@@ -68,33 +90,20 @@ OUT  := $(addsuffix ${OUT_EXT}, ${OUT})
 
 .PHONY: all build clean rebuild ${OUT}
 
-all:
-	@${MAKE} --no-print-directory build
-	@${MAKE} --no-print-directory ${OUT}
+all: build ${OUT}
 	@echo "Project Build Successfully"
 
-build: ${OBJ}
+build: ${BUILD_DEPS}
 	@echo "Objects Build Successfully"
 
 clean:
 	@${RMDIR} "${BIN_PATH}" ||:
 	@echo "Project Cleaned Successfully"
 
-rebuild:
-	@${MAKE} --no-print-directory clean
-	@${MAKE} --no-print-directory all
+rebuild: clean all
 
 #------------------------------------------------------------------------------
-# BUILD RULES
+# RULE INCLUDES
 #------------------------------------------------------------------------------
 
-${OUT}:
-	${CL} -o ${OUT} ${OBJ} ${CL_FLAG}
-
-${BIN_PATH}/%.o: ${PROJ_PATH}/%.c
-	@${MKDIR} "$(dir $@)" ||:
-	${CC} ${INC} -c -o $@ $< ${CC_FLAG}
-
-${BIN_PATH}/%.o: ${PROJ_PATH}/%.s
-	@${MKDIR} "$(dir $@)" ||:
-	${CC} ${INC} -c -o $@ $< ${CC_FLAG}
+include build/Rules.mk
