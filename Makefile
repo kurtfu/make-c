@@ -2,8 +2,8 @@
 # DEPENDENCY INCLUDES
 #------------------------------------------------------------------------------
 
-include Config.mk
-include Target.mk
+include build/Config.mk
+include build/Target.mk
 
 #------------------------------------------------------------------------------
 #  CONFIGURATION ERROR CHECKS
@@ -106,4 +106,4 @@ rebuild: clean all
 # RULE INCLUDES
 #------------------------------------------------------------------------------
 
-include Rules.mk
+include build/Rules.mk
