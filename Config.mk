@@ -23,7 +23,7 @@ TYPE      =
 # The tag describes the exclude files of the project. Any element of the tag
 # is not compiled. Multiple files could be added.
 
-EXL_FILE +=
+EXL_FILE  =
 
 # The tag specifies assembly file generation option. If the tag set as 'YES',
 # build system generates assembly files in addition to object files.
@@ -38,4 +38,4 @@ KEEP_ASM  =
 # The tag describes the include path of the project. Multiple paths could be
 # added.
 
-INC_PATH +=
+INC_PATH  =
