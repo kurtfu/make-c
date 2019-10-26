@@ -45,7 +45,7 @@ $ make clean
 ```
 
 __NOTE:__ Every compiler has different features and flags. Therefore,
-[Target.mk](build/Target.mk) and [Rules.mk](build/Rules.mk) files may have
+[Tools.mk](build/Tools.mk) and [Rules.mk](build/Rules.mk) files may have
 to be rewritten.
 
 ## Configuration
@@ -56,7 +56,7 @@ and target configurations.
 Project configurations are found under [Config.mk](build/Config.mk) file. All
 options related with build system are documented in that file.
 
-Target configurations are found under [Target.mk](build/Target.mk) file. Build
+Target configurations are found under [Tools.mk](build/Tools.mk) file. Build
 tools and output formats are cofigured from that file. All options related
 with target system are documented in that files.
 
