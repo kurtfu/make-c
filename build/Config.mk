@@ -8,8 +8,7 @@
 
 PROJ      =
 
-# The tag describes the output type of the project. Before build the project,
-# output type must be specified.
+# The tag describes the output type of the project. Default value is 'EXEC'.
 # Supported types:
 # EXEC -> Executable output.
 # SLIB -> Static library.
@@ -35,7 +34,17 @@ KEEP_ASM  =
 # COMPILER AND LINKER CONFIGURATIONS
 #------------------------------------------------------------------------------
 
-# The tag describes the include path of the project. Multiple paths could be
-# added.
+# The tag describes the search path for header files of the project. Multiple
+# paths could be added.
 
 INC_PATH  =
+
+# The tag describes the search path for library files of the project. Multiple
+# paths could be added.
+
+LIB_PATH =
+
+# The tag describes the library files to be included to the project. Multiple
+# libraries could be added.
+
+LIB      =

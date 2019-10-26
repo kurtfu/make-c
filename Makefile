@@ -3,18 +3,15 @@
 #------------------------------------------------------------------------------
 
 include build/Config.mk
-include build/Target.mk
+include build/Tools.mk
 
 #------------------------------------------------------------------------------
-#  CONFIGURATION ERROR CHECKS
+#  DEFAULT CONFIGURATION CHECKS
 #------------------------------------------------------------------------------
 
 ifndef PROJ
-    $(error "Project name must be specified!")
-endif
-
-ifndef TYPE
-    $(error "Output type must be specified!")
+    PROJ = $(notdir ${CURDIR})  # If not defined, set the project name same
+                                # with the root folder name.
 endif
 
 #------------------------------------------------------------------------------
@@ -27,10 +24,12 @@ ifeq (${OS}, Windows_NT)
     MKDIR = mkdir 2>nul     # Make directory and suspend any error.
     RMDIR = rd /s /q 2>nul  # Remove directory and suspend any error.
 
+    # Replace slashes due to the Windows path notation.
+    CURDIR := $(subst /,\,${CURDIR})
+
     # Function that used to search source files.
     define find
-        $(subst ${CURDIR},${PROJ_PATH},
-          $(subst \,/,$(shell "where" 2>nul /r ${1} ${2})))
+        $(subst ${CURDIR},${PROJ_PATH},$(shell "where" 2>nul /r ${1} ${2}))
     endef
 else
     SHELL = /bin/sh         # Shell that used by the host.
@@ -58,6 +57,11 @@ BIN_PATH   = $(addsuffix /bin, ${PROJ_PATH})
 SRC   = $(call find, ${PROJ_PATH},*.c)
 SRC  += $(call find, ${PROJ_PATH},*.s)
 
+# Replace slashes due to the Windows path notation.
+ifeq (${OS}, Windows_NT)
+	SRC := $(subst \,/,${SRC})
+endif
+
 SRC  := $(filter-out ${EXL_FILE}, ${SRC})
 SRC  := $(filter-out ${BIN_PATH}/%.s,${SRC})
 
@@ -78,17 +82,21 @@ ifeq (${KEEP_ASM}, YES)
 	BUILD_DEPS += ${ASM}
 endif
 
-ifeq (${TYPE}, EXEC)
+ifndef TYPE
 	OUT = ${EXEC}
-else ifeq (${TYPE}, SLIB)
-	OUT = ${SLIB}
+else
+    ifeq (${TYPE}, EXEC)
+        OUT = ${EXEC}
+    else ifeq (${TYPE}, SLIB)
+        OUT = ${SLIB}
+    endif
 endif
 
 #------------------------------------------------------------------------------
 # MAKE RULES
 #------------------------------------------------------------------------------
 
-.PHONY: all build clean rebuild ${OUT}
+.PHONY: all build clean rebuild
 
 all: build ${OUT}
 	@echo "Project Build Successfully"
