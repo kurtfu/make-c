@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.2.0] - 2020-01-03
+### Changed
+- Project file structure.
+
 ## [v1.2.0] - 2018-12-25
 ### Added
 - Default project configuration.
