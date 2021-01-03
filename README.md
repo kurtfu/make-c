@@ -31,13 +31,6 @@ To build the project, at the project root folder, run:
 $ make
 ```
 
-By default, `make` command compile files only when something changes in the
-source code. To build whole project in any case, run:
-
-```
-$ make rebuild
-```
-
 To remove all generated files, run:
 
 ```
@@ -45,20 +38,11 @@ $ make clean
 ```
 
 __NOTE:__ Every compiler has different features and flags. Therefore,
-[Tools.mk](build/Tools.mk) and [Rules.mk](build/Rules.mk) files may have
-to be rewritten.
+build rules may have to be rewritten.
 
 ## Configuration
 
-System configurations were grouped under two category: build configurations
-and target configurations.
-
-Project configurations are found under [Config.mk](build/Config.mk) file. All
-options related with build system are documented in that file.
-
-Target configurations are found under [Tools.mk](build/Tools.mk) file. Build
-tools and output formats are cofigured from that file. All options related
-with target system are documented in that files.
+System configurations are found at the first part of [Makefile](Makefile).
 
 ## License
 
